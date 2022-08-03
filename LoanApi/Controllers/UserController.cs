@@ -40,6 +40,7 @@ namespace LoanApi.Controllers
                     User=user
                 });
             }
+
             else
             {
                 return Ok("User not found");
