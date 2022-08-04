@@ -31,8 +31,9 @@ namespace LoanApi.Controllers
            var isExistLoan= _context.LoanDetails.Where(a => a.LoanNumber == objLoanDetails.LoanNumber).FirstOrDefault();
             if (isExistLoan == null)
             {
-                objLoanDetails.LoanId = 0;
+                //objLoanDetails.LoanId = 0;
                 objLoanDetails.LoanAmmount = Convert.ToDouble(objLoanDetails.LoanAmmount);
+                objLoanDetails.LoanStatus = true;
 
                 _context.LoanDetails.Add(objLoanDetails);
                 _context.SaveChanges();
@@ -91,6 +92,33 @@ namespace LoanApi.Controllers
             }
 
            
+        }
+        [HttpPut("cancelLoan/{LoanId}")]
+        public IActionResult cancelLoan(int LoanId)
+        {
+            var loanInfo = _context.LoanDetails.Find(LoanId);
+            if (loanInfo != null)
+            {
+                loanInfo.LoanStatus = false;
+                _context.LoanDetails.Update(loanInfo);
+                _context.SaveChanges();
+
+                return Ok(new
+                {
+                    StatusCode = 200,
+                    Message = "Loan has been Cancelled"
+                });
+
+            }
+            else
+            {
+                return Ok(new
+                {
+                    StatusCode = 400,
+                    Message = "Something went wrong"
+                });
+
+            }
         }
     }
 }
