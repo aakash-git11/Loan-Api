@@ -17,5 +17,6 @@ namespace LoanApi.Models
         public string LoanType { get; set; }
         public string LoanTerm { get; set; }
         public double LoanAmmount { get; set; }
+        public bool LoanStatus { get; set; }
     }
 }

@@ -43,7 +43,11 @@ namespace LoanApi.Controllers
 
             else
             {
-                return Ok("User not found");
+                return Ok(new
+                {
+                    StatusCode = 400,
+                    Message = "User Not Found"
+                });
             }
         }
     }
